@@ -7,6 +7,7 @@ int main(int argc, char **argv) {
 	MPI_Comm_size( MPI_COMM_WORLD, &size ); 
 	do { 
 		if (rank == 0) { 
+			printf("\nIngrese un valor entero(negativo para salir): ");
 			scanf("%d", &value);
 			MPI_Send( &value, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD ); 
 		} else { 
@@ -15,7 +16,7 @@ int main(int argc, char **argv) {
 				MPI_Send( &value, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD); 
 		}
 		
-		printf( "Process %d got %d\n", rank, value ); 
+		printf( "Proceso %d obtuvo %d\n", rank, value ); 
 		
 	} while (value >= 0); 
 	
