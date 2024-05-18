@@ -7,9 +7,8 @@ def sender(queue, event_send, event_recv):
     
     print("==========================Proceso Emisor (Sender)==========================")
     for message in messages:
-        # Enviar mensaje al receptor
         print(f"Proceso Sender {os.getpid()} envia mensaje: {message}")
-        queue.put(message)
+        queue.put(message)  #Enviar mensaje al receptor
         
         # Señalar al receptor que el mensaje fue enviado
         event_send.set()
@@ -28,11 +27,9 @@ def sender(queue, event_send, event_recv):
 def receiver(queue, event_send, event_recv):
     print("\n==========================Proceso Receptor (Receiver)==========================")
     for i in range(2):  # Esperar dos mensajes
-        # Esperar a que el sender envíe el mensaje
-        event_send.wait()
+        event_send.wait() # Esperar a que el sender envíe el mensaje
         
-        # Recibir mensaje del sender
-        message = queue.get()
+        message = queue.get()   # Recibir mensaje del sender
         print(f"Proceso Receiver {os.getpid()} recibe mensaje: {message}")
         
         # Enviar confirmación al sender
